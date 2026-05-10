@@ -20,7 +20,8 @@ def get_ticker_result_pairs(limit: int = 100,
             cursor=cursor,
             event_ticker=event_ticker,
             series_ticker=series_ticker,
-            tickers=tickers
+            tickers=tickers, 
+            status='settled'
         )
     
     except Exception as e:
@@ -28,6 +29,6 @@ def get_ticker_result_pairs(limit: int = 100,
         
         return None
     
-    ticker_responses = [(market.ticker, market.result) for market in api_response]
+    ticker_responses = [(market.ticker, market.result) for market in api_response.markets]
 
-    return ticker_responses
+    return ticker_responses, api_response.cursor
